@@ -108,9 +108,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="6YK-Ks-zzJ">
-                                <rect key="frame" x="0.0" y="333" width="414" height="120"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作成日時" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJx-Fe-Wm5">
+                                <rect key="frame" x="10" y="494" width="394" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カテゴリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3O0-4C-Vzi">
+                                <rect key="frame" x="10" y="333" width="394" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZM5-No-SW5">
+                                <rect key="frame" x="0.0" y="364" width="414" height="120"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="bOB-x1-IxZ"/>
+                                </constraints>
+                            </pickerView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="6YK-Ks-zzJ">
+                                <rect key="frame" x="0.0" y="525" width="414" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="1bv-3Y-Xlv"/>
                                     <constraint firstAttribute="height" constant="120" id="e9g-L9-7cj"/>
                                 </constraints>
                             </datePicker>
@@ -120,23 +139,34 @@
                         <constraints>
                             <constraint firstItem="CpX-Wy-Q3j" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" constant="10" id="0bV-Uc-khs"/>
                             <constraint firstItem="6YK-Ks-zzJ" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" id="11V-nZ-LA4"/>
+                            <constraint firstItem="6YK-Ks-zzJ" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" id="1wP-ym-gJM"/>
                             <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="CpX-Wy-Q3j" secondAttribute="trailing" constant="10" id="2PA-rt-Bec"/>
-                            <constraint firstItem="6YK-Ks-zzJ" firstAttribute="top" secondItem="vDH-ji-B9H" secondAttribute="bottom" constant="10" id="2f4-fz-UdT"/>
                             <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="vDH-ji-B9H" secondAttribute="trailing" constant="10" id="5fS-38-75m"/>
+                            <constraint firstItem="ZM5-No-SW5" firstAttribute="trailing" secondItem="Wev-N1-qiZ" secondAttribute="trailing" id="6ch-rS-N5l"/>
+                            <constraint firstItem="3O0-4C-Vzi" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" constant="10" id="DdC-AZ-RJo"/>
+                            <constraint firstItem="pJx-Fe-Wm5" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" constant="10" id="Enh-kp-ly2"/>
                             <constraint firstItem="4K4-4D-tQS" firstAttribute="top" secondItem="Gdw-PK-Vdm" secondAttribute="bottom" constant="10" id="HHv-UM-MBk"/>
                             <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="Gdw-PK-Vdm" secondAttribute="trailing" constant="10" id="JQF-ST-hIo"/>
                             <constraint firstItem="Gdw-PK-Vdm" firstAttribute="top" secondItem="CpX-Wy-Q3j" secondAttribute="bottom" constant="10" id="Nfd-Ra-Dwr"/>
+                            <constraint firstItem="6YK-Ks-zzJ" firstAttribute="top" secondItem="pJx-Fe-Wm5" secondAttribute="bottom" constant="10" id="S72-uk-lUp"/>
                             <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="6YK-Ks-zzJ" secondAttribute="trailing" id="ZDE-49-FpQ"/>
+                            <constraint firstItem="3O0-4C-Vzi" firstAttribute="top" secondItem="vDH-ji-B9H" secondAttribute="bottom" constant="10" id="ZXp-ru-EKr"/>
                             <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="4K4-4D-tQS" secondAttribute="trailing" constant="10" id="cwx-0C-xM2"/>
                             <constraint firstItem="CpX-Wy-Q3j" firstAttribute="top" secondItem="Wev-N1-qiZ" secondAttribute="top" constant="10" id="gNU-1u-3u5"/>
                             <constraint firstItem="vDH-ji-B9H" firstAttribute="top" secondItem="4K4-4D-tQS" secondAttribute="bottom" constant="10" id="hrN-qn-eiS"/>
                             <constraint firstItem="vDH-ji-B9H" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" constant="10" id="i3G-gd-M6a"/>
+                            <constraint firstItem="ZM5-No-SW5" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" id="iGr-g1-XIg"/>
+                            <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="3O0-4C-Vzi" secondAttribute="trailing" constant="10" id="mM5-Oe-Z9A"/>
+                            <constraint firstItem="Wev-N1-qiZ" firstAttribute="trailing" secondItem="pJx-Fe-Wm5" secondAttribute="trailing" constant="10" id="mfJ-Ay-UWs"/>
                             <constraint firstItem="4K4-4D-tQS" firstAttribute="leading" secondItem="6WN-Nb-Hws" secondAttribute="leading" constant="10" id="oGb-r3-Gwi"/>
                             <constraint firstItem="Gdw-PK-Vdm" firstAttribute="leading" secondItem="Wev-N1-qiZ" secondAttribute="leading" constant="10" id="oZj-Sd-2kf"/>
+                            <constraint firstItem="pJx-Fe-Wm5" firstAttribute="top" secondItem="ZM5-No-SW5" secondAttribute="bottom" constant="10" id="qdV-ir-glZ"/>
+                            <constraint firstItem="ZM5-No-SW5" firstAttribute="top" secondItem="3O0-4C-Vzi" secondAttribute="bottom" constant="10" id="xZ2-kZ-3D1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1FI-r2-J83"/>
                     <connections>
+                        <outlet property="categoree" destination="ZM5-No-SW5" id="dF7-Ce-EdK"/>
                         <outlet property="contentsTextView" destination="vDH-ji-B9H" id="scn-gg-P3V"/>
                         <outlet property="datePicker" destination="6YK-Ks-zzJ" id="bgT-hh-FYw"/>
                         <outlet property="titleTextField" destination="Gdw-PK-Vdm" id="3Bg-GQ-Xnk"/>
