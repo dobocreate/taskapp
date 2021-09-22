@@ -1,26 +1,23 @@
+//
+//  Categoree.swift
+//  taskapp
+//
+//  Created by 岸田展明 on 2021/09/21.
+//
+
 import RealmSwift
 
-class Task: Object {
+class Categoree: Object {
     
     // 管理用　ID。プライマリーキー
     @objc dynamic var id = 0
     
-    // タイトル
-    @objc dynamic var title = ""
-    
-    // 内容
-    @objc dynamic var contents = ""
-    
     // カテゴリー
-    @objc dynamic var cateGoree = ""
-    
-    // 日時
-    @objc dynamic var date = Date()
+    @objc dynamic var realm_categoree = ""
     
     // id をプライマリーキーとして設定
     override static func primaryKey() -> String? {
         
         return "id"
     }
-    
 }
