@@ -11,6 +11,8 @@ import RealmSwift
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textField_search: UITextField!
+    
     
     // Realmインスタンスを取得する
     let realm = try! Realm()
@@ -42,7 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
         // Cellに値を設定する
         let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
+        cell.textLabel?.text = task.title + ", " + task.cateGoree
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -103,6 +105,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    
+    // kensakuButtonがプッシュされたときに実行される
+    @IBAction func kensakuButton(_ sender: Any) {
+        
+        
+        
+        if textField_search.text == "" {
+            
+            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true)
+        } else {
+            
+            taskArray = try! Realm().objects(Task.self).filter("cateGoree == %@", textField_search.text!).sorted(byKeyPath: "date", ascending: true)
+        }
+        
+        tableView?.reloadData()
+        
+        print(textField_search.text!)
     }
     
 }

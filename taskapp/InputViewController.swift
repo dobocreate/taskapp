@@ -15,6 +15,7 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var categoreePicker: UIPickerView!
     
 
     @IBOutlet weak var categoree: UIPickerView!
@@ -23,14 +24,9 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     var task: Task!
     
     // Picker
-    var dataList = [
+    var dataList2 = try! Realm().objects(Categoree.self).sorted(byKeyPath: "id", ascending: true)
     
-        "仕事", "プライベート"
-    ]
-    
-    var categoree_label:String!     // 選択したカテゴリを代入する変数
-    
-    
+    var categoree_label:String = ""     // 選択したカテゴリを代入する変数
     
 
     override func viewDidLoad() {
@@ -49,8 +45,21 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
 
         titleTextField.text = task.title
         contentsTextView.text = task.contents
+        
         datePicker.date = task.date
+
     }
+    
+    // 入力画面から戻ってきた時に TableView を更新させる
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        // CategoreePickerを更新する
+        dataList2 = try! Realm().objects(Categoree.self)
+        categoreePicker.reloadAllComponents()
+    }
+    
 
     // Picker categoree
     // 列の数
@@ -62,21 +71,21 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // 行数、リストの数
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return dataList.count
+        return dataList2.count
     }
     
     // 最初の表示
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return dataList[row]
+        return dataList2[row].realm_categoree
     }
     
     // Rowが選択された時の挙動
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        categoree_label = dataList[row]
+        categoree_label = dataList2[row].realm_categoree
         
-        print("カテゴリー数：\(dataList.count)")
+        print("カテゴリー数：\(dataList2.count)")
     }
     
     
@@ -85,15 +94,16 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         view.endEditing(true)
     }
     
-    
+    // viewが表示されないくなる直前に実行される
     override func viewWillDisappear(_ animated: Bool) {
         
        try! realm.write {
         
-           self.task.title = self.titleTextField.text!
-           self.task.contents = self.contentsTextView.text
-           self.task.date = self.datePicker.date
-           self.realm.add(self.task, update: .modified)
+        self.task.title = self.titleTextField.text!
+        self.task.contents = self.contentsTextView.text
+        self.task.cateGoree = categoree_label
+        self.task.date = self.datePicker.date
+        self.realm.add(self.task, update: .modified)
        }
 
         setNotification(task: task)
