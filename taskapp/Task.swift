@@ -14,6 +14,9 @@ class Task: Object {
     // カテゴリー
     @objc dynamic var cateGoree = ""
     
+    // カテゴリーID
+    @objc dynamic var cateGoreeId = 0
+    
     // 日時
     @objc dynamic var date = Date()
     

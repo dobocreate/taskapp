@@ -31,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
             completionHandler([.banner, .list, .sound])
     }
+    
+    
+    
 
     // MARK: UISceneSession Lifecycle
 

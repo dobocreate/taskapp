@@ -16,14 +16,11 @@ class CategoreeViewController: UIViewController, UITableViewDelegate, UITableVie
     // Realmインスタンスを取得する
     let realm2 = try! Realm()
     
-
-
     // DB内のタスクが格納されるリスト。
     // idの近い順でソート：昇順
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     // クラスを指定して、idでソートした一覧を取得する。
     var categoreeArray = try! Realm().objects(Categoree.self).sorted(byKeyPath: "id", ascending: true)
-    
     
     // 追加ボタンがプッシュされたときに実行される
     @IBAction func add_categoree(_ sender: Any) {
@@ -31,11 +28,11 @@ class CategoreeViewController: UIViewController, UITableViewDelegate, UITableVie
         // Categoreeインスタンスを取得する
         let addCategoree: Categoree! = Categoree()
         
-        let all_Categoree = realm2.objects(Categoree.self)
+        let CategoreeObjct = realm2.objects(Categoree.self)
         
-        if all_Categoree.count != 0 {
+        if CategoreeObjct.count != 0 {
             
-            addCategoree.id = all_Categoree.max(ofProperty: "id")! + 1
+            addCategoree.id = CategoreeObjct.max(ofProperty: "id")! + 1
         }
         
         try! realm2.write {
@@ -63,8 +60,7 @@ class CategoreeViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
-    
+    // viewがロードされたときに実行される
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,7 +70,6 @@ class CategoreeViewController: UIViewController, UITableViewDelegate, UITableVie
         CateGoreeView.dataSource = self
         
     }
-    
     
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

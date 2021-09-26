@@ -209,7 +209,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="1FI-r2-J83"/>
                     <connections>
-                        <outlet property="categoree" destination="ZM5-No-SW5" id="dF7-Ce-EdK"/>
                         <outlet property="categoreePicker" destination="ZM5-No-SW5" id="iVR-ag-Op9"/>
                         <outlet property="contentsTextView" destination="vDH-ji-B9H" id="scn-gg-P3V"/>
                         <outlet property="datePicker" destination="6YK-Ks-zzJ" id="bgT-hh-FYw"/>

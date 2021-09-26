@@ -17,9 +17,6 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var categoreePicker: UIPickerView!
     
-
-    @IBOutlet weak var categoree: UIPickerView!
-    
     let realm = try! Realm()
     var task: Task!
     
@@ -27,16 +24,17 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     var dataList2 = try! Realm().objects(Categoree.self).sorted(byKeyPath: "id", ascending: true)
     
     var categoree_label:String = ""     // 選択したカテゴリを代入する変数
-    
+    var categoree_id: Int = 0
 
+    // viewがロードされたときに実行される
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         // Picker Delegateの設定
-        categoree.delegate = self
-        categoree.dataSource = self
+        categoreePicker.delegate = self
+        categoreePicker.dataSource = self
         
         // 背景をタップしたらdismissKeyboardメソッドを呼ぶように設定する
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
@@ -47,7 +45,18 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         contentsTextView.text = task.contents
         
         datePicker.date = task.date
-
+        
+        // CategoreePickerの選択
+        // 確認するポイント
+        if dataList2.count > 0 {
+            
+            categoree_id = task.cateGoreeId
+            categoree_label = task.cateGoree
+            
+            categoreePicker.selectRow(categoree_id, inComponent: 0, animated: true)
+        }
+        
+        print("カテゴリーID：\(categoree_id)")
     }
     
     // 入力画面から戻ってきた時に TableView を更新させる
@@ -58,6 +67,21 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // CategoreePickerを更新する
         dataList2 = try! Realm().objects(Categoree.self)
         categoreePicker.reloadAllComponents()
+        
+        // CategoreePickerの選択
+        if dataList2.count > 0 {
+            if task.cateGoreeId <= dataList2.count {
+                
+                categoree_id = dataList2[task.cateGoreeId].id
+                categoree_label = dataList2[task.cateGoreeId].realm_categoree
+            } else {
+                
+                categoree_id = dataList2[1].id
+                categoree_label = dataList2[1].realm_categoree
+            }
+            
+            categoreePicker.selectRow(categoree_id, inComponent: 0, animated: true)
+        }
     }
     
 
@@ -84,6 +108,7 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         categoree_label = dataList2[row].realm_categoree
+        categoree_id = dataList2[row].id
         
         print("カテゴリー数：\(dataList2.count)")
     }
@@ -97,18 +122,19 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // viewが表示されないくなる直前に実行される
     override func viewWillDisappear(_ animated: Bool) {
         
-       try! realm.write {
-        
-        self.task.title = self.titleTextField.text!
-        self.task.contents = self.contentsTextView.text
-        self.task.cateGoree = categoree_label
-        self.task.date = self.datePicker.date
-        self.realm.add(self.task, update: .modified)
-       }
+        try! realm.write {
+
+            self.task.title = self.titleTextField.text!
+            self.task.contents = self.contentsTextView.text
+            self.task.cateGoree = categoree_label
+            self.task.cateGoreeId = categoree_id
+            self.task.date = self.datePicker.date
+            self.realm.add(self.task, update: .modified)
+        }
 
         setNotification(task: task)
         
-       super.viewWillDisappear(animated)
+        super.viewWillDisappear(animated)
     }
     
     func setNotification(task: Task) {
